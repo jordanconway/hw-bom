@@ -1,12 +1,5 @@
 name: 'Hardware Bill of Materials'
 description: 'A GitHub Action to generate a hardware bill of materials'
-inputs:
-  # Define the inputs for the action here
-  # For example:
-  # input_name:
-  #   description: 'Description of the input'
-  #   required: true
-  #   default: 'default value'
 outputs:
   cloud: # id of the output
     description: 'The Cloud Provider'
@@ -36,7 +29,7 @@ outputs:
     description: 'The Total Disk of the machine'
   diskFree: # id of the output
     description: 'The Free Disk of the machine'
-  diskUsed: # id of the output  
+  diskUsed: # id of the output
     description: 'The Used Disk of the machine'
 runs:
   using: 'node20'
