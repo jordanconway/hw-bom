@@ -1,0 +1,43 @@
+name: 'Hardware Bill of Materials'
+description: 'A GitHub Action to generate a hardware bill of materials'
+inputs:
+  # Define the inputs for the action here
+  # For example:
+  # input_name:
+  #   description: 'Description of the input'
+  #   required: true
+  #   default: 'default value'
+outputs:
+  cloud: # id of the output
+    description: 'The Cloud Provider'
+  instanceType: # id of the output
+    description: 'The Instance Type'
+  uname: # id of the output
+    description: 'The Uname of the machine'
+  display: # id of the output
+    description: 'The Display of the machine'
+  cpu: # id of the output
+    description: 'The CPU of the machine'
+  cpuVendor: # id of the output
+    description: 'The CPU Vendor of the machine'
+  cpuModel: # id of the output
+    description: 'The CPU Model of the machine'
+  cpuNumProc: # id of the output
+    description: 'The CPU Cores of the machine'
+  hostname: # id of the output
+    description: 'The Hostname of the machine'
+  gpuVendor: # id of the output
+    description: 'The GPU Vendor of the machine'
+  gpuModel: # id of the output
+    description: 'The GPU Model of the machine'
+  memTotal: # id of the output
+    description: 'The Total Memory of the machine'
+  diskTotal: # id of the output
+    description: 'The Total Disk of the machine'
+  diskFree: # id of the output
+    description: 'The Free Disk of the machine'
+  diskUsed: # id of the output  
+    description: 'The Used Disk of the machine'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
