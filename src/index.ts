@@ -66,6 +66,21 @@ function runCommand(command: string): string {
     return 'Error executing command'
   }
 }
+const display = runCommand('sudo lshw -C display')
+function processDisplay(display: string, section: string ): string {
+  try {
+   const result = display
+     .split("\n") // split by newline
+     .map((line) => line.trim()) // trim spaces on start and end
+     .filter((line) => line.startsWith(section)) // find the line that starts with section
+     .pop() // remove the only element in array
+     ?.replace(`${section}: `, ""); // remove the "product: " prefix 
+     return result;
+  } catch (error) {
+    console.error('Error processing display string:', error);
+    return '';
+  }
+}
 
 async function run(): Promise<void> {
   try {
@@ -73,19 +88,14 @@ async function run(): Promise<void> {
     const awsToken = cloud === 'aws' ? await getAwsToken() : ''
     const instanceType = await getInstanceType(cloud, awsToken)
     const uname = runCommand('uname -a')
-    const display = runCommand('sudo lshw -C display')
     const cpu = runCommand(
       'cat /proc/cpuinfo |grep "model name"|sort -u|cut -d ":" -f2|awk \'{$1=$1};1\''
     )
     const cpuVendor = runCommand("lscpu | grep Vendor | awk '{print $NF}'")
     const cpuNumProc = runCommand('getconf _NPROCESSORS_ONLN')
     const hostname = runCommand('hostname')
-    const gpuVendor = runCommand(
-      'sudo lshw -C display|grep vendor|cut -d ":" -f2|awk \'{$1=$1};1\''
-    )
-    const gpuModel = runCommand(
-      'sudo lshw -C display|grep product|cut -d ":" -f2|awk \'{$1=$1};1\''
-    )
+    const gpuVendor = processDisplay(display, 'vendor')
+    const gpuModel = processDisplay(display, 'product')
     const memTotal = runCommand(
       "grep MemTotal /proc/meminfo|awk '{print $(NF-1),$NF}'"
     )
