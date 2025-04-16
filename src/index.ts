@@ -67,18 +67,18 @@ function runCommand(command: string): string {
   }
 }
 const display = runCommand('sudo lshw -C display')
-function processDisplay(display: string, section: string ): string {
+function processDisplay(display: string, section: string): string {
   try {
-   const result = display
-     .split("\n") // split by newline
-     .map((line) => line.trim()) // trim spaces on start and end
-     .filter((line) => line.startsWith(section)) // find the line that starts with section
-     .pop() // remove the only element in array
-     ?.replace(`${section}: `, ""); // remove the "product: " prefix 
-     return result;
+    const result = display
+      .split('\n') // split by newline
+      .map(line => line.trim()) // trim spaces on start and end
+      .filter(line => line.startsWith(section)) // find the line that starts with section
+      .pop() // remove the only element in array
+      ?.replace(`${section}: `, '') // remove the "product: " prefix
+    return result ?? ''
   } catch (error) {
-    console.error('Error processing display string:', error);
-    return '';
+    console.error('Error processing display string:', error)
+    return ''
   }
 }
 
