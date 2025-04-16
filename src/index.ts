@@ -43,6 +43,12 @@ async function getInstanceType(
         )
         return await gceResponse.text()
       }
+      case 'openstack': {
+        const openstackResponse = await fetch(
+          'http://169.254.169.254/2009-04-04/meta-data/instance-type'
+        )
+        return await openstackResponse.text()
+      }
       default:
         return 'Unknown Instance Type'
     }
