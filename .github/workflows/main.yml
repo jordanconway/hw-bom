@@ -31,7 +31,7 @@ jobs:
       
       - name: Collect Hardware Information
         id: hw-info
-        uses: jordanconway/hw-bom@${{ github.sha  }}
+        uses: ./
         
       - name: Display Hardware Information
         run: |
