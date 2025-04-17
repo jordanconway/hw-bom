@@ -27,7 +27,7 @@ jobs:
   hardware-info:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Collect Hardware Information
         id: hw-info
