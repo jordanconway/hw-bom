@@ -67,7 +67,6 @@ export function runCommand(command: string): string {
   }
 }
 
-const display = runCommand('sudo lshw -C display')
 export function processDisplay(display: string, section: string): string {
   try {
     const result = display
@@ -85,6 +84,7 @@ export function processDisplay(display: string, section: string): string {
 
 export async function run(): Promise<void> {
   try {
+    const display = runCommand('sudo lshw -C display')
     const cloud = runCommand('cloud-init query cloud-name')
     const awsToken = cloud === 'aws' ? await getAwsToken() : ''
     const instanceType = await getInstanceType(cloud, awsToken)

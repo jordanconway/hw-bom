@@ -195,8 +195,11 @@ describe('GitHub Action Tests', () => {
       expect(core.setOutput).toHaveBeenCalledWith('cpuVendor', 'Intel')
       expect(core.setOutput).toHaveBeenCalledWith('cpuNumProc', '2')
       expect(core.setOutput).toHaveBeenCalledWith('hostname', 'test-host')
-      //expect(core.setOutput).toHaveBeenCalledWith('gpuVendor', 'NVIDIA Corporation')
-      //expect(core.setOutput).toHaveBeenCalledWith('gpuModel', 'Tesla T4')
+      expect(core.setOutput).toHaveBeenCalledWith(
+        'gpuVendor',
+        'NVIDIA Corporation'
+      )
+      expect(core.setOutput).toHaveBeenCalledWith('gpuModel', 'Tesla T4')
       expect(core.setOutput).toHaveBeenCalledWith('memTotal', '8192 MB')
       expect(core.setOutput).toHaveBeenCalledWith('diskTotal', '100G')
       expect(core.setOutput).toHaveBeenCalledWith('diskUsed', '50G')
