@@ -30,7 +30,7 @@ export async function getInstanceType(
       }
       case 'azure': {
         const azureResponse = await fetch(
-          'http://169.254.169.254/metadata/instance/compute/vmSize?api-version=2021-01-01&format=json',
+          'http://169.254.169.254/metadata/instance/compute/vmSize?api-version=2021-02-01&format=json',
           {headers: {Metadata: 'true'}}
         )
         const azureData = await azureResponse.json()

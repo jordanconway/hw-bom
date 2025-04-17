@@ -25723,7 +25723,7 @@ function getInstanceType(cloud_1) {
                     return yield awsResponse.text();
                 }
                 case 'azure': {
-                    const azureResponse = yield fetch('http://169.254.169.254/metadata/instance/compute/vmSize?api-version=2021-01-01&format=json', { headers: { Metadata: 'true' } });
+                    const azureResponse = yield fetch('http://169.254.169.254/metadata/instance/compute/vmSize?api-version=2021-02-01&format=json', { headers: { Metadata: 'true' } });
                     const azureData = yield azureResponse.json();
                     return azureData;
                 }
