@@ -7,7 +7,7 @@ import {
   getInstanceType,
   runCommand,
   processDisplay
-} from '../src/main.js'
+} from '../src/main'
 
 // Mock the dependencies
 jest.mock('child_process')
@@ -18,7 +18,9 @@ const mockFetch = jest.fn() as jest.MockedFunction<typeof fetch>
 global.fetch = mockFetch
 
 // Mock the processDisplay function
- const mockProcessDisplay = jest.fn() as jest.MockedFunction<typeof processDisplay>
+//const mockProcessDisplay = jest.fn() as jest.MockedFunction<
+//  typeof processDisplay
+//>
 
 describe('GitHub Action Tests', () => {
   beforeEach(() => {
@@ -155,10 +157,11 @@ describe('GitHub Action Tests', () => {
       const commandOutputs: Record<string, string> = {
         'cloud-init query cloud-name': 'aws',
         'uname -a': 'Linux test-host 5.4.0-1045-aws #47-Ubuntu SMP',
-        'cat /proc/cpuinfo |grep "model name"|sort -u|cut -d ":" -f2|awk \'{$1=$1};1\'': 'Intel(R) Xeon(R) CPU',
+        'cat /proc/cpuinfo |grep "model name"|sort -u|cut -d ":" -f2|awk \'{$1=$1};1\'':
+          'Intel(R) Xeon(R) CPU',
         "lscpu | grep Vendor | awk '{print $NF}'": 'Intel',
         'getconf _NPROCESSORS_ONLN': '2',
-        'hostname': 'test-host',
+        hostname: 'test-host',
         'sudo lshw -C display': 'vendor: NVIDIA Corporation\nproduct: Tesla T4',
         "grep MemTotal /proc/meminfo|awk '{print $(NF-1),$NF}'": '8192 MB',
         "df -h --total | awk 'END{print $2}'": '100G',
@@ -169,7 +172,7 @@ describe('GitHub Action Tests', () => {
       mockExecSync.mockImplementation((command: unknown) => {
         return Buffer.from(commandOutputs[command as string] || '')
       })
-   
+
       // Mock AWS token and instance type responses
       mockFetch
         .mockResolvedValueOnce({
@@ -178,15 +181,16 @@ describe('GitHub Action Tests', () => {
         .mockResolvedValueOnce({
           text: () => Promise.resolve('t2.micro')
         } as Response)
-      
-   
-      
+
       await run()
 
       // Verify all outputs were set
       expect(core.setOutput).toHaveBeenCalledWith('cloud', 'aws')
       expect(core.setOutput).toHaveBeenCalledWith('instanceType', 't2.micro')
-      expect(core.setOutput).toHaveBeenCalledWith('uname','Linux test-host 5.4.0-1045-aws #47-Ubuntu SMP'      )
+      expect(core.setOutput).toHaveBeenCalledWith(
+        'uname',
+        'Linux test-host 5.4.0-1045-aws #47-Ubuntu SMP'
+      )
       expect(core.setOutput).toHaveBeenCalledWith('cpu', 'Intel(R) Xeon(R) CPU')
       expect(core.setOutput).toHaveBeenCalledWith('cpuVendor', 'Intel')
       expect(core.setOutput).toHaveBeenCalledWith('cpuNumProc', '2')
@@ -199,10 +203,9 @@ describe('GitHub Action Tests', () => {
       expect(core.setOutput).toHaveBeenCalledWith('diskFree', '50G')
     })
     it('should handle errors and set failed status', async () => {
-      (core.setOutput as jest.Mock).mockImplementation(() => {
+      ;(core.setOutput as jest.Mock).mockImplementation(() => {
         throw new Error('Command failed')
       })
-
 
       await run()
 

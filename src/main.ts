@@ -95,7 +95,7 @@ export async function run(): Promise<void> {
     const cpuVendor = runCommand("lscpu | grep Vendor | awk '{print $NF}'")
     const cpuNumProc = runCommand('getconf _NPROCESSORS_ONLN')
     const hostname = runCommand('hostname')
-      const memTotal = runCommand(
+    const memTotal = runCommand(
       "grep MemTotal /proc/meminfo|awk '{print $(NF-1),$NF}'"
     )
     const diskTotal = runCommand("df -h --total | awk 'END{print $2}'")
@@ -162,7 +162,7 @@ export async function run(): Promise<void> {
     core.setOutput('diskFree', diskFree)
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
-      }
+  }
 }
 
 run()
