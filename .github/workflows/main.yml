@@ -7,6 +7,7 @@ on:
 
 jobs:
   test-job:
+    name: Test hw-bom GitHub Action
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -22,3 +23,26 @@ jobs:
 
     - name: Test and build
       run: npm run check-all
+  dogfood:
+    name: Dogfood hw-bom GitHub Action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Collect Hardware Information
+        id: hw-info
+        uses: jordanconway/hw-bom@${{ github.sha  }}
+        
+      - name: Display Hardware Information
+        run: |
+          echo "Cloud Provider: ${{ steps.hw-info.outputs.cloud }}"
+          echo "Instance Type: ${{ steps.hw-info.outputs.instanceType }}"
+          echo "CPU: ${{ steps.hw-info.outputs.cpu }}"
+          echo "CPU Vendor: ${{ steps.hw-info.outputs.cpuVendor }}"
+          echo "CPU Cores: ${{ steps.hw-info.outputs.cpuNumProc }}"
+          echo "GPU Vendor: ${{ steps.hw-info.outputs.gpuVendor }}"
+          echo "GPU Model: ${{ steps.hw-info.outputs.gpuModel }}"
+          echo "Memory: ${{ steps.hw-info.outputs.memTotal }}"
+          echo "Disk Total: ${{ steps.hw-info.outputs.diskTotal }}"
+          echo "Disk Used: ${{ steps.hw-info.outputs.diskUsed }}"
+          echo "Disk Free: ${{ steps.hw-info.outputs.diskFree }}"
