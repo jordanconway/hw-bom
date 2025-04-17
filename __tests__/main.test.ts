@@ -17,11 +17,6 @@ jest.mock('@actions/core')
 const mockFetch = jest.fn() as jest.MockedFunction<typeof fetch>
 global.fetch = mockFetch
 
-// Mock the processDisplay function
-//const mockProcessDisplay = jest.fn() as jest.MockedFunction<
-//  typeof processDisplay
-//>
-
 describe('GitHub Action Tests', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -65,9 +60,9 @@ describe('GitHub Action Tests', () => {
     })
 
     it('should return Azure instance type', async () => {
-      const mockInstanceType = {vmSize: 'Standard_D2s_v3'}
+      const mockInstanceType = 'Standard_D2s_v3'
       mockFetch.mockResolvedValueOnce({
-        json: () => Promise.resolve(mockInstanceType)
+        text: () => Promise.resolve(mockInstanceType)
       } as Response)
 
       const instanceType = await getInstanceType('azure')
