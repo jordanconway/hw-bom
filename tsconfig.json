@@ -6,11 +6,19 @@
       "esModuleInterop": true,
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true,
-      "outDir": "./lib",
-      "rootDir": "./src",
+      "outDir": "./dist",
+      "rootDir": ".",
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "noEmit": true
     },
+    "include": [
+      "src/**/*",
+      "__tests__/**/*"
+    ],
     "exclude": [
       "node_modules",
-      "__tests__"
+      "dist"
     ]
   }
