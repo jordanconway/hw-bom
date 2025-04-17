@@ -1,4 +1,4 @@
-name: Test hw-bom GitHub Action
+name: Test hw-bom GitHub Action 🧪
 on:
   push:
     branches: [ main ]
@@ -7,7 +7,7 @@ on:
 
 jobs:
   test-job:
-    name: Test hw-bom GitHub Action
+    name: Test hw-bom GitHub Action TypeScript 🧪
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -24,16 +24,16 @@ jobs:
     - name: Test and build
       run: npm run check-all
   dogfood:
-    name: Dogfood hw-bom GitHub Action
+    name: Run hw-bom GitHub Action on this repository 🐶🍖
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       
-      - name: Collect Hardware Information
+      - name: Collect Hardware Information 🔎 
         id: hw-info
         uses: ./
         
-      - name: Display Hardware Information
+      - name: Display Hardware Information 🖥️
         run: |
           echo "Cloud Provider: ${{ steps.hw-info.outputs.cloud }}"
           echo "Instance Type: ${{ steps.hw-info.outputs.instanceType }}"
