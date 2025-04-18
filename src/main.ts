@@ -41,7 +41,8 @@ export async function getInstanceType(
           'http://metadata.google.internal/computeMetadata/v1/instance/machine-type',
           {headers: {'Metadata-Flavor': 'Google'}}
         )
-        return await gceResponse.text()
+        const gceData = (await gceResponse.text()).split('/').pop() || ''
+        return gceData
       }
       case 'openstack': {
         const openstackResponse = await fetch(

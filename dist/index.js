@@ -25729,7 +25729,8 @@ function getInstanceType(cloud_1) {
                 }
                 case 'gce': {
                     const gceResponse = yield fetch('http://metadata.google.internal/computeMetadata/v1/instance/machine-type', { headers: { 'Metadata-Flavor': 'Google' } });
-                    return yield gceResponse.text();
+                    const gceData = (yield gceResponse.text()).split('/').pop() || '';
+                    return gceData;
                 }
                 case 'openstack': {
                     const openstackResponse = yield fetch('http://169.254.169.254/2009-04-04/meta-data/instance-type');
