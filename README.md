@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2025 2025 The Linux Foundation
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
 # Hardware Bill of Materials (HW-BOM) GitHub Action
 
 This GitHub Action collects detailed hardware information from cloud provider instances and makes it available as workflow outputs. It's particularly useful for:
