@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2025 2025 The Linux Foundation
+//
+// SPDX-License-Identifier: Apache-2.0
+
 import { defineConfig } from "eslint/config";
 import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
 import typescriptEslint from "@typescript-eslint/eslint-plugin";
