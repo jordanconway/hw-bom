@@ -24412,14 +24412,51 @@ module.exports = {
   WebsocketFrameSend
 }
 
+
+/***/ }),
+
+/***/ 3171:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+const { Writable } = __nccwpck_require__(2203)
+const diagnosticsChannel = __nccwpck_require__(1637)
+const { parserStates, opcodes, states, emptyBuffer } = __nccwpck_require__(5913)
+const { kReadyState, kSentClose, kResponse, kReceivedClose } = __nccwpck_require__(2933)
+const { isValidStatusCode, failWebsocketConnection, websocketMessageReceived } = __nccwpck_require__(3574)
+const { WebsocketFrameSend } = __nccwpck_require__(1237)
+
+// This code was influenced by ws released under the MIT license.
 // Copyright (c) 2011 Einar Otto Stangvik <einaros@gmail.com>
 // Copyright (c) 2013 Arnout Kazemier and contributors
 // Copyright (c) 2016 Luigi Pinca and contributors
-// SPDX-FileCopyrightText: 2025 2025 The Linux Foundation
-//
-// SPDX-License-Identifier: Apache-2.0
 
-_write (chunk, _, callback) {
+const channels = {}
+channels.ping = diagnosticsChannel.channel('undici:websocket:ping')
+channels.pong = diagnosticsChannel.channel('undici:websocket:pong')
+
+class ByteParser extends Writable {
+  #buffers = []
+  #byteOffset = 0
+
+  #state = parserStates.INFO
+
+  #info = {}
+  #fragments = []
+
+  constructor (ws) {
+    super()
+
+    this.ws = ws
+  }
+
+  /**
+   * @param {Buffer} chunk
+   * @param {() => void} callback
+   */
+  _write (chunk, _, callback) {
     this.#buffers.push(chunk)
     this.#byteOffset += chunk.length
 
