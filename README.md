@@ -3,6 +3,10 @@ SPDX-FileCopyrightText: 2025 2025 The Linux Foundation
 
 SPDX-License-Identifier: Apache-2.0
 -->
+# REPO MOVED! 
+> 🚧 
+>
+> This repository has moved to https://github.com/lfreleng-actions/hw-bom-javascript
 
 # Hardware Bill of Materials (HW-BOM) GitHub Action
 
